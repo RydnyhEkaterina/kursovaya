@@ -1,0 +1,283 @@
+﻿<Window x:Class="Tasks.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Планировщик личных дел"
+        Height="720" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F6F8">
+
+    <Window.Resources>
+        <Style x:Key="ViewTabButton" TargetType="RadioButton">
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,4,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#7B1E2B"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#F3DDE0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BurgundyButton" TargetType="Button">
+            <Setter Property="Background" Value="#7B1E2B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#5E1620"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LightButton" TargetType="Button">
+            <Setter Property="Background" Value="#F3DDE0"/>
+            <Setter Property="Foreground" Value="#7B1E2B"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E8C8CD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#7B1E2B"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#F3DDE0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Мои дела" FontSize="24" FontWeight="Bold"
+                   VerticalAlignment="Center" Margin="0,0,0,12"/>
+
+        <Button Grid.Row="1" Content="+ Новая задача"
+                Style="{StaticResource BurgundyButton}"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,12"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
+            <RadioButton Content="День" GroupName="View" Style="{StaticResource ViewTabButton}" IsChecked="True"/>
+            <RadioButton Content="Неделя" GroupName="View" Style="{StaticResource ViewTabButton}"/>
+            <RadioButton Content="Месяц" GroupName="View" Style="{StaticResource ViewTabButton}"/>
+            <RadioButton Content="Год" GroupName="View" Style="{StaticResource ViewTabButton}"/>
+            <RadioButton Content="Календарь" GroupName="View" Style="{StaticResource ViewTabButton}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="3" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="260"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,16,0">
+                <TextBlock Text="Категория:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <ComboBox Width="150" SelectedIndex="0">
+                    <ComboBoxItem Content="Все"/>
+                    <ComboBoxItem Content="Учёба"/>
+                    <ComboBoxItem Content="Дом"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,16,0">
+                <TextBlock Text="Статус:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <ComboBox Width="140" SelectedIndex="0">
+                    <ComboBoxItem Content="Все"/>
+                    <ComboBoxItem Content="Создана"/>
+                    <ComboBoxItem Content="Выполняется"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,16,0">
+                <TextBlock Text="Дата с:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <DatePicker Width="130"/>
+                <TextBlock Text="по:" VerticalAlignment="Center" Margin="8,0,6,0"/>
+                <DatePicker Width="130"/>
+            </StackPanel>
+
+            <TextBlock Text="Поиск:" Grid.Column="3" VerticalAlignment="Center" Margin="75,0,6,0"/>
+            <TextBox Grid.Column="4" Height="30"
+                     VerticalContentAlignment="Center" Padding="8,0"
+                     ToolTip="Поиск по названию и описанию"
+                    />
+        </Grid>
+
+        <!-- Таблица задач: данные «нарисованы» прямо в XAML -->
+        <Border Grid.Row="4" Background="White" BorderBrush="#E0E0E0" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="210"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Шапка -->
+                <Border Grid.Row="0" Grid.ColumnSpan="6" Background="#F0F0F0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Название" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="1" Text="Дедлайн" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="2" Text="Категория" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="3" Text="Приоритет" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="4" Text="Статус" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="5" Text="Действия" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- Задача 1: срочная, подсвечена -->
+                <Border Grid.Row="1" Grid.ColumnSpan="6" Background="#FFF2F0" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Сдать курсовой проект" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="1" Text="18.11.2026 18:00" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="2" Text="Учёба" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="3" Text="Высокий" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="4" Text="Выполняется" VerticalAlignment="Center" Margin="8,0"/>
+                        <StackPanel Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                            <Button Content="Изменить" Style="{StaticResource LightButton}" Padding="10,6" Margin="0,0,4,0"/>
+                            <Button Content="Удалить" Style="{StaticResource DeleteButton}" Padding="10,6"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Задача 2 -->
+                <Border Grid.Row="2" Grid.ColumnSpan="6" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Купить продукты" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="1" Text="19.11.2026 19:00" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="2" Text="Дом" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="3" Text="Средний" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="4" Text="Создана" VerticalAlignment="Center" Margin="8,0"/>
+                        <StackPanel Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                            <Button Content="Изменить" Style="{StaticResource LightButton}" Padding="10,6" Margin="0,0,4,0"/>
+                            <Button Content="Удалить" Style="{StaticResource DeleteButton}" Padding="10,6"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Задача 3 -->
+                <Border Grid.Row="3" Grid.ColumnSpan="6" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Встреча с руководителем" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="1" Text="20.11.2026 14:00" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="2" Text="Учёба" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="3" Text="Средний" VerticalAlignment="Center" Margin="8,0"/>
+                        <TextBlock Grid.Column="4" Text="Создана" VerticalAlignment="Center" Margin="8,0"/>
+                        <StackPanel Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                            <Button Content="Изменить" Style="{StaticResource LightButton}" Padding="10,6" Margin="0,0,4,0"/>
+                            <Button Content="Удалить" Style="{StaticResource DeleteButton}" Padding="10,6"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
